@@ -1,3 +1,4 @@
+import 'package:clockapp/alarm_page.dart';
 import 'package:clockapp/clock_view.dart';
 import 'package:clockapp/menu_info.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
            Expanded(
               child: Consumer<MenuInfo>(
                  builder: (BuildContext context,MenuInfo value,Widget child){
-                   if(value.menuType!=MenuType.clock)return Container();
+                   if(value.menuType!=MenuType.clock)return AlarmPage();
                    return Container(
                  padding: EdgeInsets.symmetric(horizontal:32,vertical:64),
                  color: Color(0xFF2D2F41),
