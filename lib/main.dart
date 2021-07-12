@@ -1,10 +1,33 @@
 import 'package:clockapp/enums.dart';
 import 'package:clockapp/menu_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'homepage.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var initializationSettingAndroid = 
+      AndroidInitializationSettings('codex_logo');
+      var initializationSettingIOS = IOSInitializationSettings(
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+        onDidReceiveLocalNotification:
+            (int id, String title , String body ,String payload)async{});
+    var initializationSettings = InitializationSettings(
+      initializationSettingAndroid , initializationSettingIOS
+    );
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+    onSelectNotification: (String payload) async{
+      if(payload!=null){
+        debugPrint('notification payload: '+payload);
+      }
+    }
+    );
   runApp(MyApp());
 }
 
